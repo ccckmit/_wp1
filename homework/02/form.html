@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全功能 Input 展示問卷</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f7f6; padding: 20px; line-height: 1.6; }
+        .container { max-width: 800px; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+        label { font-weight: bold; margin-bottom: 5px; color: #34495e; }
+        input[type="text"], input[type="email"], input[type="password"], input[type="number"], 
+        input[type="tel"], input[type="url"], input[type="date"], select, textarea {
+            padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px;
+        }
+        .row { display: flex; gap: 20px; flex-wrap: wrap; }
+        .row > div { flex: 1; min-width: 200px; }
+        .checkbox-group, .radio-group { flex-direction: row; gap: 15px; align-items: center; }
+        .inline-label { font-weight: normal; margin-left: 5px; cursor: pointer; }
+        .btn-submit { background-color: #3498db; color: white; padding: 12px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 18px; margin-top: 20px; }
+        .btn-submit:hover { background-color: #2980b9; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 30px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>2026 科技生活體驗問卷</h2>
+    <p>請填寫以下資訊，讓我們了解您對數位工具的使用偏好。</p>
+
+    <form action="/submit" method="post" enctype="multipart/form-data">
+        
+        <div class="row">
+            <div class="form-group">
+                <label for="name">全名 (type="text"):</label>
+                <input type="text" id="name" name="name" placeholder="例如：王小明" required>
+            </div>
+            <div class="form-group">
+                <label for="email">電子郵件 (type="email"):</label>
+                <input type="email" id="email" name="email" placeholder="example@mail.com">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="pwd">密碼 (type="password"):</label>
+                <input type="password" id="pwd" name="pwd">
+            </div>
+            <div class="form-group">
+                <label for="phone">電話 (type="tel"):</label>
+                <input type="tel" id="phone" name="phone" placeholder="0912-345-678">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="age">年齡 (type="number"):</label>
+                <input type="number" id="age" name="age" min="1" max="120" value="25">
+            </div>
+            <div class="form-group">
+                <label for="satisfaction">滿度度評分 (type="range" 1-10):</label>
+                <input type="range" id="satisfaction" name="satisfaction" min="1" max="10" step="1">
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="bday">生日 (type="date"):</label>
+                <input type="date" id="bday" name="bday">
+            </div>
+            <div class="form-group">
+                <label for="meeting">預約時段 (type="datetime-local"):</label>
+                <input type="datetime-local" id="meeting" name="meeting">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group">
+                <label for="month">月份選擇 (type="month"):</label>
+                <input type="month" id="month" name="month">
+            </div>
+            <div class="form-group">
+                <label for="color">個人專屬色彩 (type="color"):</label>
+                <input type="color" id="color" name="color" value="#3498db">
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label>您使用的作業系統 (type="radio"):</label>
+            <div>
+                <input type="radio" id="os1" name="os" value="windows"><label for="os1" class="inline-label">Windows</label>
+                <input type="radio" id="os2" name="os" value="macos"><label for="os2" class="inline-label">macOS</label>
+                <input type="radio" id="os3" name="os" value="linux"><label for="os3" class="inline-label">Linux</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>感興趣的技術 (type="checkbox"):</label>
+            <div>
+                <input type="checkbox" id="tech1" name="tech" value="ai"><label for="tech1" class="inline-label">人工智慧</label>
+                <input type="checkbox" id="tech2" name="tech" value="iot"><label for="tech2" class="inline-label">物聯網</label>
+                <input type="checkbox" id="tech3" name="tech" value="web3"><label for="tech3" class="inline-label">Web3</label>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="form-group">
+            <label for="portfolio">作品集網址 (type="url"):</label>
+            <input type="url" id="portfolio" name="portfolio" placeholder="https://">
+        </div>
+
+        <div class="form-group">
+            <label for="avatar">上傳頭像 (type="file"):</label>
+            <input type="file" id="avatar" name="avatar" accept="image/*">
+        </div>
+
+        <div class="form-group">
+            <label for="feedback">留言建議 (textarea):</label>
+            <textarea id="feedback" name="feedback" rows="4" placeholder="請輸入您的看法..."></textarea>
+        </div>
+
+        <input type="hidden" name="token" value="abc123secret">
+
+        <div style="display: flex; gap: 10px;">
+            <input type="submit" value="提交問卷" class="btn-submit">
+            <input type="reset" value="重設表單" class="btn-submit" style="background-color: #95a5a6;">
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>
